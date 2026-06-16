@@ -28,6 +28,7 @@ class ExtractConfig:
     keep_work_dir: bool = False
     ffmpeg: str = "ffmpeg"
     ytdlp: str = "yt-dlp"
+    cookie_browser: str | None = None
 
 
 @dataclass(frozen=True)
@@ -71,7 +72,12 @@ def extract_slides(source: str, output_dir: str | Path, config: ExtractConfig) -
         work_dir.mkdir(parents=True)
 
     try:
-        video_path = resolve_video_source(source, work_dir, ytdlp=config.ytdlp)
+        video_path = resolve_video_source(
+            source,
+            work_dir,
+            ytdlp=config.ytdlp,
+            cookie_browser=config.cookie_browser,
+        )
         sampled = sample_video_frames(
             video_path,
             work_dir / "frames",

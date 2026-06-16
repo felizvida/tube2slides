@@ -215,6 +215,14 @@ def main() -> int:
             self.min_stable.setRange(1, 10)
             self.min_stable.setValue(2)
 
+            self.cookie_browser = QComboBox()
+            self.cookie_browser.addItem("None", None)
+            self.cookie_browser.addItem("Chrome", "chrome")
+            self.cookie_browser.addItem("Edge", "edge")
+            self.cookie_browser.addItem("Firefox", "firefox")
+            self.cookie_browser.addItem("Safari", "safari")
+            self.cookie_browser.addItem("Brave", "brave")
+
             self.narrative_mode = QComboBox()
             self.narrative_mode.addItem("No notes", "none")
             self.narrative_mode.addItem("Caption notes", "captions")
@@ -305,6 +313,7 @@ def main() -> int:
             grid.addWidget(self.field_label("Stable frames"), 1, 0)
             grid.addWidget(self.min_stable, 1, 1)
             layout.addLayout(grid)
+            layout.addLayout(self.field_row("Cookies", self.cookie_browser))
             layout.addWidget(self.divider())
             layout.addLayout(self.field_row("Narrative", self.narrative_mode))
             layout.addLayout(self.field_row("Model", self.openai_model_input))
@@ -395,6 +404,10 @@ def main() -> int:
         def current_narrative_mode(self) -> str:
             return str(self.narrative_mode.currentData())
 
+        def current_cookie_browser(self) -> str | None:
+            value = self.cookie_browser.currentData()
+            return str(value) if value else None
+
         def start_job(self) -> None:
             source = self.source_input.text().strip()
             output = self.output_input.text().strip()
@@ -428,6 +441,7 @@ def main() -> int:
                 output_root=Path(output).expanduser(),
                 sample_interval=float(self.sample_interval.value()),
                 min_stable_samples=int(self.min_stable.value()),
+                cookie_browser=self.current_cookie_browser(),
                 narrative_mode=self.current_narrative_mode(),
                 openai_api_key=api_key,
                 openai_model=self.openai_model_input.text().strip() or DEFAULT_OPENAI_MODEL,

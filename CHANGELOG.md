@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.2.1 - 2026-06-16
+
+- Bundle and configure `certifi` CA certificates for packaged desktop downloads.
+- Apply the bundled CA certificate environment to both video and caption downloads.
+- Add optional browser-cookie support for YouTube videos that require sign-in.
+
 ## 0.2.0 - 2026-06-16
 
 - Rename the public project identity to Slidewright.

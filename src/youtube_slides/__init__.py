@@ -4,4 +4,4 @@ from .pipeline import ExtractConfig, ExtractionResult, extract_slides
 
 __all__ = ["ExtractConfig", "ExtractionResult", "extract_slides"]
 
-__version__ = "0.2.0"
+__version__ = "0.2.1"

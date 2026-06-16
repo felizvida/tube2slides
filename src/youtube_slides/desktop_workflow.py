@@ -25,6 +25,7 @@ class DesktopJobConfig:
     min_stable_samples: int = 2
     similarity_threshold: int = 20
     max_width: int = 1280
+    cookie_browser: str | None = None
     narrative_mode: str = "captions"
     openai_api_key: str | None = None
     openai_model: str = DEFAULT_OPENAI_MODEL
@@ -52,6 +53,8 @@ def run_desktop_job(config: DesktopJobConfig, log: LogCallback | None = None) ->
     job_dir.mkdir(parents=True)
 
     logger(f"Output folder: {job_dir}")
+    if config.cookie_browser and is_url(config.source):
+        logger(f"Using {config.cookie_browser.title()} browser cookies for YouTube requests.")
     logger("Extracting unique slide frames...")
     extraction = extract_slides(
         config.source,
@@ -61,6 +64,7 @@ def run_desktop_job(config: DesktopJobConfig, log: LogCallback | None = None) ->
             min_stable_samples=config.min_stable_samples,
             similarity_threshold=config.similarity_threshold,
             max_width=config.max_width,
+            cookie_browser=config.cookie_browser,
         ),
     )
     logger(f"Extracted {len(extraction.slides)} slides from {extraction.sampled_frames} sampled frames.")
@@ -108,7 +112,11 @@ def _build_notes(
         return {}
 
     logger("Downloading English captions for narrative notes...")
-    cues = download_english_captions(config.source, job_dir / "captions")
+    cues = download_english_captions(
+        config.source,
+        job_dir / "captions",
+        cookie_browser=config.cookie_browser,
+    )
     if not cues:
         logger("No English captions were found; the deck will not include notes.")
         return {}

@@ -12,6 +12,7 @@ Remove-Item -Recurse -Force build, dist -ErrorAction SilentlyContinue
   --noconfirm `
   --windowed `
   --name "Slidewright" `
+  --collect-all certifi `
   --collect-all imageio_ffmpeg `
   --collect-all yt_dlp `
   --hidden-import pptx `

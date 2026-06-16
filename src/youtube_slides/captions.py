@@ -6,6 +6,9 @@ import tempfile
 from dataclasses import dataclass
 from pathlib import Path
 
+from .browser_cookies import ytdlp_cookie_options
+from .certificates import resolve_ca_bundle, temporary_certificate_env
+
 
 @dataclass(frozen=True)
 class CaptionCue:
@@ -22,7 +25,12 @@ _TAG_RE = re.compile(r"<[^>]+>")
 _VOICE_RE = re.compile(r"^\s*<v\s+[^>]+>", re.IGNORECASE)
 
 
-def download_english_captions(source_url: str, work_dir: str | Path | None = None) -> list[CaptionCue]:
+def download_english_captions(
+    source_url: str,
+    work_dir: str | Path | None = None,
+    *,
+    cookie_browser: str | None = None,
+) -> list[CaptionCue]:
     """Download English subtitles/auto-captions for a YouTube URL with yt-dlp."""
 
     try:
@@ -50,9 +58,11 @@ def download_english_captions(source_url: str, work_dir: str | Path | None = Non
             "noplaylist": True,
             "quiet": True,
             "no_warnings": True,
+            **ytdlp_cookie_options(cookie_browser),
         }
-        with yt_dlp.YoutubeDL(options) as ydl:
-            ydl.download([source_url])
+        with temporary_certificate_env(resolve_ca_bundle()):
+            with yt_dlp.YoutubeDL(options) as ydl:
+                ydl.download([source_url])
 
         caption_files = sorted(work_path.glob("captions*.vtt"))
         if not caption_files:

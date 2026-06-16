@@ -12,6 +12,7 @@ Slidewright extracts distinct presentation slides from a YouTube URL or local vi
 - Create an HTML reading view for quick review.
 - Add caption-derived speaker notes with no OpenAI token usage.
 - Optionally generate AI narrative notes from captions using the OpenAI Responses API.
+- Reuse browser cookies when YouTube requires sign-in or bot confirmation.
 - Build native macOS and Windows desktop apps with PyInstaller.
 
 ## Best Way To Use It
@@ -21,8 +22,9 @@ For nontechnical users, use the native desktop app from the GitHub release. No s
 1. Open **Slidewright**.
 2. Paste a YouTube lecture URL or choose a local video.
 3. Choose an output folder.
-4. Pick a narrative mode.
-5. Click **Extract**.
+4. If YouTube asks for sign-in or bot confirmation, choose the browser where you are already signed in.
+5. Pick a narrative mode.
+6. Click **Extract**.
 
 See [docs/NATIVE_APP.md](docs/NATIVE_APP.md) for distribution and build details.
 
@@ -62,6 +64,12 @@ Extract slides from YouTube:
 slidewright "https://www.youtube.com/watch?v=VIDEO_ID" -o slides
 ```
 
+Use browser cookies for YouTube videos that require sign-in:
+
+```bash
+slidewright "https://www.youtube.com/watch?v=VIDEO_ID" -o slides --cookies-from-browser chrome
+```
+
 Useful options:
 
 ```bash
@@ -99,9 +107,9 @@ GitHub Actions can also build both platforms from the **Build desktop apps** wor
 
 - Python 3.10+
 - `ffmpeg` on your `PATH` for CLI use
-- `yt-dlp` for YouTube URL support in CLI use
+- `yt-dlp` and `certifi` for YouTube URL support in CLI use
 
-The packaged desktop app includes Python dependencies, `yt-dlp`, and a bundled `ffmpeg` binary via `imageio-ffmpeg`.
+The packaged desktop app includes Python dependencies, `yt-dlp`, CA certificates through `certifi`, and a bundled `ffmpeg` binary via `imageio-ffmpeg`.
 
 ## Notes
 

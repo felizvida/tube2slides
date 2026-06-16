@@ -7,11 +7,12 @@ The desktop app is the easiest no-server option for coworkers. It runs locally, 
 1. Open **Slidewright**.
 2. Paste a YouTube lecture URL.
 3. Choose an output folder.
-4. Choose a narrative mode.
-5. Click **Extract**.
-6. Open the saved `.pptx` or `reading_view.html`.
+4. If YouTube requires sign-in, choose the browser where you are already signed in.
+5. Choose a narrative mode.
+6. Click **Extract**.
+7. Open the saved `.pptx` or `reading_view.html`.
 
-No shared server is required. The packaged app includes Python dependencies, `yt-dlp`, and a bundled `ffmpeg` binary via `imageio-ffmpeg`.
+No shared server is required. The packaged app includes Python dependencies, `yt-dlp`, CA certificates through `certifi`, and a bundled `ffmpeg` binary via `imageio-ffmpeg`.
 
 ## Narrative Modes
 
@@ -62,6 +63,7 @@ PyInstaller is not a reliable cross-compiler. Build the Mac app on macOS and the
 ## Limitations
 
 - YouTube access depends on `yt-dlp` and YouTube availability.
+- Some YouTube videos require browser cookies from a signed-in browser.
 - Some lectures only show slides through a room camera; the current app extracts the best distinct frames but does not yet provide a manual crop/review editor.
 - Narrative notes require English YouTube captions.
 - AI narratives require internet access, an OpenAI API key, and API token usage.

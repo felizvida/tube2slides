@@ -75,6 +75,12 @@ def build_parser() -> argparse.ArgumentParser:
     )
     parser.add_argument("--ffmpeg", default="ffmpeg", help="ffmpeg executable")
     parser.add_argument("--ytdlp", default="yt-dlp", help="yt-dlp executable")
+    parser.add_argument(
+        "--cookies-from-browser",
+        default=None,
+        metavar="BROWSER",
+        help="load YouTube cookies from a browser such as chrome, edge, firefox, safari, or brave",
+    )
     return parser
 
 
@@ -99,6 +105,7 @@ def main(argv: list[str] | None = None) -> int:
             keep_work_dir=args.keep_work_dir,
             ffmpeg=args.ffmpeg,
             ytdlp=args.ytdlp,
+            cookie_browser=args.cookies_from_browser,
         )
         result = extract_slides(args.source, Path(args.output), config)
     except Exception as exc:
