@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.1.1 - 2026-06-16
+
+- Fix packaged desktop apps so YouTube downloads use the bundled `yt_dlp` Python package when no system `yt-dlp` executable is installed.
+- Point `yt-dlp` at the bundled ffmpeg binary during video download and merge.
+
 ## 0.1.0 - 2026-06-16
 
 Initial public release.

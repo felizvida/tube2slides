@@ -2,7 +2,6 @@ from __future__ import annotations
 
 import shutil
 import subprocess
-import sys
 from dataclasses import dataclass
 from pathlib import Path
 from urllib.parse import urlparse
@@ -110,34 +109,43 @@ def resolve_ffmpeg_executable(ffmpeg: str = "ffmpeg") -> str:
 
 
 def _download_with_ytdlp(source: str, work_dir: Path, *, ytdlp: str) -> Path | None:
-    command_prefix: list[str]
+    output_template = work_dir / "source.%(ext)s"
+    ffmpeg_exe = resolve_ffmpeg_executable()
+
     if shutil.which(ytdlp):
-        command_prefix = [ytdlp]
+        command = [
+            ytdlp,
+            "--no-playlist",
+            "-f",
+            "bv*[ext=mp4]+ba[ext=m4a]/b[ext=mp4]/best",
+            "--merge-output-format",
+            "mp4",
+            "--ffmpeg-location",
+            ffmpeg_exe,
+            "-o",
+            str(output_template),
+            source,
+        ]
+        _run(command, description="download video with yt-dlp")
     else:
         try:
-            import yt_dlp  # noqa: F401
+            import yt_dlp
         except Exception:
             return None
-        command_prefix = [sys.executable, "-m", "yt_dlp"]
-
-    output_template = work_dir / "source.%(ext)s"
-    command = [
-        *command_prefix,
-        "--no-playlist",
-        "-f",
-        "bv*[ext=mp4]+ba[ext=m4a]/b[ext=mp4]/best",
-        "--merge-output-format",
-        "mp4",
-        "-o",
-        str(output_template),
-        source,
-    ]
-    try:
-        _run(command, description="download video with yt-dlp")
-    except RuntimeError:
-        if command_prefix[:2] == ["python3", "-m"]:
-            return None
-        raise
+        options = {
+            "noplaylist": True,
+            "format": "bv*[ext=mp4]+ba[ext=m4a]/b[ext=mp4]/best",
+            "merge_output_format": "mp4",
+            "ffmpeg_location": ffmpeg_exe,
+            "outtmpl": str(output_template),
+            "quiet": True,
+            "no_warnings": True,
+        }
+        try:
+            with yt_dlp.YoutubeDL(options) as downloader:
+                downloader.download([source])
+        except Exception as exc:
+            raise RuntimeError(f"unable to download video with bundled yt-dlp: {exc}") from exc
 
     candidates = sorted(
         [path for path in work_dir.glob("source.*") if path.is_file()],

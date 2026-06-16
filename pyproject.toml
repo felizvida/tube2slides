@@ -4,7 +4,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "tube2slides"
-version = "0.1.0"
+version = "0.1.1"
 description = "Extract distinct presentation slides from YouTube lectures and export PowerPoint decks."
 readme = "README.md"
 requires-python = ">=3.10"
