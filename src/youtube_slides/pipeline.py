@@ -209,7 +209,7 @@ def _write_contact_sheet(output_dir: Path, slides: list[SlideInfo]) -> Path:
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>youtube-slides contact sheet</title>
+<title>Slidewright contact sheet</title>
 <style>
 body {{ margin: 24px; font: 14px/1.45 -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; color: #1f2328; }}
 .grid {{ display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 18px; }}

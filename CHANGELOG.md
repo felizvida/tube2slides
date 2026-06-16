@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.2.0 - 2026-06-16
+
+- Rename the public project identity to Slidewright.
+- Update the primary CLI command to `slidewright` while keeping `tube2slides` and `youtube-slides` aliases.
+- Rename desktop app bundles and GitHub Actions artifacts to Slidewright.
+
 ## 0.1.1 - 2026-06-16
 
 - Fix packaged desktop apps so YouTube downloads use the bundled `yt_dlp` Python package when no system `yt-dlp` executable is installed.

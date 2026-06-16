@@ -1,10 +1,10 @@
-# Native Desktop App
+# Slidewright Native Desktop App
 
 The desktop app is the easiest no-server option for coworkers. It runs locally, opens a native window, and saves each lecture as a job folder containing slide PNGs, a PowerPoint deck, and an optional HTML reading view.
 
 ## User Experience
 
-1. Open **YouTube Lecture Slides**.
+1. Open **Slidewright**.
 2. Paste a YouTube lecture URL.
 3. Choose an output folder.
 4. Choose a narrative mode.
@@ -34,7 +34,7 @@ Run on macOS:
 The app is written to:
 
 ```text
-dist/YouTube Lecture Slides.app
+dist/Slidewright.app
 ```
 
 For distribution outside your machine, sign/notarize the app with your Apple Developer certificate before sharing broadly.
@@ -50,10 +50,10 @@ Run in PowerShell on Windows:
 The app is written to:
 
 ```text
-dist\YouTube Lecture Slides\YouTube Lecture Slides.exe
+dist\Slidewright\Slidewright.exe
 ```
 
-Zip the whole `dist\YouTube Lecture Slides` folder for coworkers. For broad sharing, sign the executable to reduce SmartScreen warnings.
+Zip the whole `dist\Slidewright` folder for coworkers. For broad sharing, sign the executable to reduce SmartScreen warnings.
 
 ## Why Build On Each OS?
 

@@ -193,7 +193,7 @@ def main() -> int:
     class MainWindow(QMainWindow):
         def __init__(self) -> None:
             super().__init__()
-            self.setWindowTitle("YouTube Lecture Slides")
+            self.setWindowTitle("Slidewright")
             self.setMinimumSize(980, 660)
             self.resize(1060, 720)
             self.worker: Worker | None = None
@@ -260,9 +260,9 @@ def main() -> int:
             header = QHBoxLayout()
             header.setSpacing(18)
             header_text = QVBoxLayout()
-            title = QLabel("Lecture Deck Studio")
+            title = QLabel("Slidewright")
             title.setObjectName("AppTitle")
-            subtitle = QLabel("YouTube lectures to local PowerPoint decks")
+            subtitle = QLabel("YouTube lectures to crafted PowerPoint decks")
             subtitle.setObjectName("Subtitle")
             header_text.addWidget(title)
             header_text.addWidget(subtitle)
@@ -480,7 +480,7 @@ def main() -> int:
         return 0
 
     app = QApplication(sys.argv)
-    app.setApplicationName("YouTube Lecture Slides")
+    app.setApplicationName("Slidewright")
     app.setStyle("Fusion")
     app.setStyleSheet(APP_STYLE)
     window = MainWindow()

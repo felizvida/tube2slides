@@ -3,9 +3,9 @@ requires = ["hatchling>=1.25"]
 build-backend = "hatchling.build"
 
 [project]
-name = "tube2slides"
-version = "0.1.1"
-description = "Extract distinct presentation slides from YouTube lectures and export PowerPoint decks."
+name = "slidewright"
+version = "0.2.0"
+description = "Craft readable slide decks from YouTube lectures and technical talk videos."
 readme = "README.md"
 requires-python = ">=3.10"
 license = "Apache-2.0"
@@ -39,10 +39,10 @@ classifiers = [
 dependencies = []
 
 [project.urls]
-Homepage = "https://github.com/felizvida/tube2slides"
-Repository = "https://github.com/felizvida/tube2slides"
-Issues = "https://github.com/felizvida/tube2slides/issues"
-Documentation = "https://github.com/felizvida/tube2slides#readme"
+Homepage = "https://github.com/felizvida/slidewright"
+Repository = "https://github.com/felizvida/slidewright"
+Issues = "https://github.com/felizvida/slidewright/issues"
+Documentation = "https://github.com/felizvida/slidewright#readme"
 
 [project.optional-dependencies]
 download = ["yt-dlp>=2024.8.6"]
@@ -55,6 +55,8 @@ desktop = [
 ]
 
 [project.scripts]
+slidewright = "youtube_slides.cli:main"
+slidewright-app = "youtube_slides.desktop_app:main"
 tube2slides = "youtube_slides.cli:main"
 tube2slides-app = "youtube_slides.desktop_app:main"
 youtube-slides = "youtube_slides.cli:main"

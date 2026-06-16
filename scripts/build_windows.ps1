@@ -11,10 +11,10 @@ Remove-Item -Recurse -Force build, dist -ErrorAction SilentlyContinue
 .\.venv-desktop\Scripts\pyinstaller.exe `
   --noconfirm `
   --windowed `
-  --name "YouTube Lecture Slides" `
+  --name "Slidewright" `
   --collect-all imageio_ffmpeg `
   --collect-all yt_dlp `
   --hidden-import pptx `
   packaging\desktop_launcher.py
 
-Write-Host "Built dist\YouTube Lecture Slides\YouTube Lecture Slides.exe"
+Write-Host "Built dist\Slidewright\Slidewright.exe"

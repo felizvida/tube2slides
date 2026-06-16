@@ -10,7 +10,7 @@ from .pipeline import ExtractConfig, extract_slides, parse_timestamp
 
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(
-        prog="tube2slides",
+        prog="slidewright",
         description="Extract distinct presentation slides from a YouTube URL or local video.",
     )
     parser.add_argument("source", help="YouTube URL or local video file")
@@ -102,7 +102,7 @@ def main(argv: list[str] | None = None) -> int:
         )
         result = extract_slides(args.source, Path(args.output), config)
     except Exception as exc:
-        print(f"tube2slides: {exc}", file=sys.stderr)
+        print(f"slidewright: {exc}", file=sys.stderr)
         return 1
 
     print(f"sampled {result.sampled_frames} frames")

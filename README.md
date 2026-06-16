@@ -1,8 +1,8 @@
-# Tube2Slides
+# Slidewright
 
 Turn YouTube lectures and technical talk videos into readable slide decks.
 
-Tube2Slides extracts distinct presentation slides from a YouTube URL or local video, exports numbered PNG slides, and can build a PowerPoint deck plus an HTML reading view. The native desktop app is intended for coworkers who want a simple no-server workflow on macOS or Windows.
+Slidewright extracts distinct presentation slides from a YouTube URL or local video, exports numbered PNG slides, and can build a PowerPoint deck plus an HTML reading view. The native desktop app is intended for coworkers who want a simple no-server workflow on macOS or Windows.
 
 ## Features
 
@@ -18,7 +18,7 @@ Tube2Slides extracts distinct presentation slides from a YouTube URL or local vi
 
 For nontechnical users, use the native desktop app from the GitHub release. No shared server is required. The app runs locally, bundles the video tooling it needs, and saves each lecture into a local job folder.
 
-1. Open **YouTube Lecture Slides**.
+1. Open **Slidewright**.
 2. Paste a YouTube lecture URL or choose a local video.
 3. Choose an output folder.
 4. Pick a narrative mode.
@@ -46,26 +46,26 @@ For YouTube URL support in CLI mode, install the downloader extra:
 python3 -m pip install -e ".[download]"
 ```
 
-The legacy command name `youtube-slides` is still available, but `tube2slides` is the preferred command.
+The legacy command names `tube2slides` and `youtube-slides` are still available, but `slidewright` is the preferred command.
 
 ## CLI Usage
 
 Extract slides from a local file:
 
 ```bash
-tube2slides talk.mp4 -o slides
+slidewright talk.mp4 -o slides
 ```
 
 Extract slides from YouTube:
 
 ```bash
-tube2slides "https://www.youtube.com/watch?v=VIDEO_ID" -o slides
+slidewright "https://www.youtube.com/watch?v=VIDEO_ID" -o slides
 ```
 
 Useful options:
 
 ```bash
-tube2slides talk.mp4 \
+slidewright talk.mp4 \
   --sample-interval 2 \
   --min-stable-samples 2 \
   --similarity-threshold 20 \

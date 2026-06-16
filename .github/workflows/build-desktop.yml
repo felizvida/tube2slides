@@ -16,8 +16,8 @@ jobs:
       - name: Upload macOS artifact
         uses: actions/upload-artifact@v4
         with:
-          name: YouTube-Lecture-Slides-macOS
-          path: dist/YouTube Lecture Slides.app
+          name: Slidewright-macOS
+          path: dist/Slidewright.app
 
   windows:
     runs-on: windows-latest
@@ -32,5 +32,5 @@ jobs:
       - name: Upload Windows artifact
         uses: actions/upload-artifact@v4
         with:
-          name: YouTube-Lecture-Slides-Windows
-          path: dist/YouTube Lecture Slides
+          name: Slidewright-Windows
+          path: dist/Slidewright

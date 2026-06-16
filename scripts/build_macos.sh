@@ -12,10 +12,10 @@ rm -rf build dist
 ./.venv-desktop/bin/pyinstaller \
   --noconfirm \
   --windowed \
-  --name "YouTube Lecture Slides" \
+  --name "Slidewright" \
   --collect-all imageio_ffmpeg \
   --collect-all yt_dlp \
   --hidden-import pptx \
   packaging/desktop_launcher.py
 
-echo "Built dist/YouTube Lecture Slides.app"
+echo "Built dist/Slidewright.app"
