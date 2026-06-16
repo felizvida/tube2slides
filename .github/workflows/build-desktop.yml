@@ -2,6 +2,12 @@ name: Build desktop apps
 
 on:
   workflow_dispatch:
+  push:
+    tags:
+      - "v*"
+
+permissions:
+  contents: write
 
 jobs:
   macos:
@@ -13,11 +19,13 @@ jobs:
           python-version: "3.12"
       - name: Build macOS app
         run: ./scripts/build_macos.sh
+      - name: Package macOS app
+        run: ditto -c -k --sequesterRsrc --keepParent dist/Slidewright.app "Slidewright_macOS_${{ github.ref_name }}.zip"
       - name: Upload macOS artifact
         uses: actions/upload-artifact@v4
         with:
           name: Slidewright-macOS
-          path: dist/Slidewright.app
+          path: Slidewright_macOS_${{ github.ref_name }}.zip
 
   windows:
     runs-on: windows-latest
@@ -29,8 +37,34 @@ jobs:
       - name: Build Windows app
         shell: pwsh
         run: .\scripts\build_windows.ps1
+      - name: Package Windows app
+        shell: pwsh
+        run: Compress-Archive -Path "dist\Slidewright" -DestinationPath "Slidewright_Windows_${env:GITHUB_REF_NAME}.zip" -Force
       - name: Upload Windows artifact
         uses: actions/upload-artifact@v4
         with:
           name: Slidewright-Windows
-          path: dist/Slidewright
+          path: Slidewright_Windows_${{ github.ref_name }}.zip
+
+  release:
+    if: startsWith(github.ref, 'refs/tags/')
+    runs-on: ubuntu-latest
+    needs:
+      - macos
+      - windows
+    steps:
+      - name: Download desktop artifacts
+        uses: actions/download-artifact@v4
+        with:
+          path: release-assets
+      - name: Publish GitHub release
+        uses: softprops/action-gh-release@v2
+        with:
+          name: Slidewright ${{ github.ref_name }}
+          body: |
+            Desktop release for Slidewright ${{ github.ref_name }}.
+
+            - Bundles yt-dlp, ffmpeg, and CA certificates for local YouTube processing.
+            - Adds optional browser-cookie support for YouTube lectures that require sign-in.
+            - Provides native macOS and Windows zip assets.
+          files: release-assets/**/*.zip

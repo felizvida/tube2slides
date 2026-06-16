@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.2.2 - 2026-06-16
+
+- Publish macOS and Windows desktop zip assets automatically from version tags.
+- Includes the packaged YouTube download fixes from 0.2.1 for distributed app builds.
+
 ## 0.2.1 - 2026-06-16
 
 - Bundle and configure `certifi` CA certificates for packaged desktop downloads.
